@@ -65,11 +65,25 @@ public class TotalFreq {
 	public static void sortAndPrint(HashMap<String, Integer> map) {
 		Set<Map.Entry<String,Integer>> set = map.entrySet();
 		List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(set);
-		Collections.sort( list, (o1, o2) -> (o2.getValue()).compareTo( o1.getValue() ));
+		Collections.sort(list, (o1, o2) -> (o2.getValue()).compareTo(o1.getValue() ));
+		PrintWriter writer = null;
+		try {
+			writer = new PrintWriter("output.txt", "UTF-8");
+			for (Map.Entry<String, Integer> entry:list) {
+	            writer.println("Token: " + entry.getKey()+" Freq: "+entry.getValue());
+	        }
+
+		}
+		catch(Exception e) {
+			e.getMessage();
+		}
+		finally {
+			writer.close();
+		}
 		
-		for (Map.Entry<String, Integer> entry:list) {
-            System.out.println("Token: " + entry.getKey()+" Freq: "+entry.getValue());
-        }
+//		for (Map.Entry<String, Integer> entry:list) {
+//            System.out.println("Token: " + entry.getKey()+" Freq: "+entry.getValue());
+//        }
 		
 	}
 }
