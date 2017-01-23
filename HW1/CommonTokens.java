@@ -1,3 +1,11 @@
+/*
+ * Author: Ameya Raje
+ * Student ID: 54729960
+ * 
+ * 
+ * HW1: Q2
+ */
+
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.text.DateFormat;

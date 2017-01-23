@@ -1,3 +1,12 @@
+/*
+ * Author: Ameya Raje
+ * Student ID: 54729960
+ * 
+ * 
+ * HW1: Q3
+ */
+
+
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

@@ -1,3 +1,11 @@
+/*
+ * Author: Ameya Raje
+ * Student ID: 54729960
+ * 
+ * 
+ * HW1: Q1
+ */
+
 import java.util.*;
 import java.util.Map.Entry;
 import java.io.*;
