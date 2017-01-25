@@ -16,16 +16,17 @@ public class Controller {
 
 	public static void main(String[] args) throws Exception {
 		
-		DateFormat format = new SimpleDateFormat("HH:MM:SS");
-		Date startTime = new Date();
+		long start =  System.nanoTime();
 		
 		HashMap<String, Integer> result = new HashMap<String, Integer>();
 		result = tokenize(args[0]);
 		
 		printTokens(result);
 		
-		Date endTime = new Date();
-		System.out.println("Time taken to execute is : " + (endTime.getTime()-startTime.getTime()) + " ms");
+		long end = System.nanoTime();
+		long diff = end-start;
+		long msTime = diff/1000000;
+		System.out.println("Time taken to execute is : " + msTime + " ms");
 		
 	}
 	

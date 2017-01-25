@@ -16,8 +16,7 @@ public class CommonTokens {
 	
 	public static void main(String[] args) throws Exception {
 		
-		DateFormat format = new SimpleDateFormat("HH:MM:SS");
-		Date startTime = new Date();
+		long start =  System.nanoTime();
 		
 		HashSet<String> file1 = new HashSet<>();
 		HashSet<String> file2 = new HashSet<>();
@@ -26,56 +25,68 @@ public class CommonTokens {
 		file2 = tokenize(args[1]);
 		getIntersection(file1, file2);
 		
-		Date endTime = new Date();
-		System.out.println("Time taken to execute is : " + (endTime.getTime()-startTime.getTime()) + " ms");
+		long end = System.nanoTime();
+		long diff = end-start;
+		long msTime = diff/1000000;
+		System.out.println("Time taken to execute is : " + msTime + " ms");
 	}
 	
 	public static HashSet<String> tokenize(String filePath) throws Exception {
 
 		InputStream input = new FileInputStream(filePath);
-
 		HashSet<String> freqCount = new HashSet<String>();				
-		Scanner sc = new Scanner(input);
-		while (sc.hasNextLine()) {
+		Scanner sc = null;
+		
+		try {
+			input = new FileInputStream(filePath);
+			sc = new Scanner(input);
+			while (sc.hasNextLine()) {
 
-			String line = sc.nextLine();
-			int start = -1;
-			int end = -1;
+				String line = sc.nextLine();
+				int start = -1;
+				int end = -1;
 
-			for (int i = 0; i < line.length(); i++) {
-				char currChar = line.charAt(i);
+				for (int i = 0; i < line.length(); i++) {
+					char currChar = line.charAt(i);
 
-				boolean isAlpha = Character.isDigit(currChar);
-				boolean isNumber = Character.isDefined(currChar);
+					boolean isAlpha = Character.isDigit(currChar);
+					boolean isNumber = Character.isDefined(currChar);
 
-				if ((isAlpha || isNumber)) {
-					if (start == -1) {
-						start = i;
-						end = i;
+					if ((isAlpha || isNumber)) {
+						if (start == -1) {
+							start = i;
+							end = i;
+						}
+						else
+							end = i+1;
 					}
-					else
-						end = i+1;
-				}
 
-				if (end == line.length() || (!Character.isAlphabetic(line.charAt(end))) && !Character.isDigit(line.charAt(end))) {
-					if (start == end) {
+					if (end == line.length() || (!Character.isAlphabetic(line.charAt(end))) && !Character.isDigit(line.charAt(end))) {
+						if (start == end) {
+							start = -1;
+							end = -1;
+							continue;
+						}
+						String word = line.substring(start, end);
+						word = word.toLowerCase();
+						if (!freqCount.contains(word))
+							freqCount.add(word);
 						start = -1;
 						end = -1;
-						continue;
 					}
-					String word = line.substring(start, end);
-					word = word.toLowerCase();
-					if (!freqCount.contains(word))
-						freqCount.add(word);
-					start = -1;
-					end = -1;
+
 				}
 
 			}
-
 		}
-		sc.close();
+		catch(Exception e) {
+			e.getMessage();
+		}
+		finally {
 
+			sc.close();
+			input.close();
+		}
 		return freqCount;
 	}	
 	
